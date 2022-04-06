@@ -22,8 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> sortByAgeDescAndNameAsc(final List<User> users) {
         return users.stream()
-                .sorted(Comparator.comparing(User::getFirstName))
-                .sorted(Comparator.comparing(User::getAge).reversed())
+                .sorted(Comparator.comparing(User::getAge).reversed().thenComparing(User::getFirstName))
                 .collect(Collectors.toList());
     }
 
@@ -39,18 +38,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getUpdateUserWithAgeHigherThan(final List<User> users, final int age) {
-        throw new UnsupportedOperationException("Not implemented");
+        return  users.stream()
+                .filter(user -> user.getAge() > age)
+                .findFirst();
     }
 
     @Override
     public Map<Integer, List<User>> groupByCountOfPrivileges(final List<User> users) {
-        return null;
+        return users.stream()
+                .collect(Collectors.groupingBy(user -> user.getPrivileges().size()));
     }
 
     @Override
     public double getAverageAgeForUsers(final List<User> users) {
         return users.stream()
-                .collect(Collectors.averagingDouble(User::getAge));
+                .mapToDouble(User::getAge)
+                .average()
+                .orElse(-1);
     }
 
     @Override
@@ -68,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> filterBy(final List<User> users, final Predicate<User>... predicates) {
-        throw new UnsupportedOperationException("Not implemented");
+        return null;
     }
 
     @Override
@@ -78,11 +82,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<Privilege, List<User>> groupByPrivileges(List<User> users) {
-        throw new UnsupportedOperationException("Not implemented");
+        return null;
     }
 
     @Override
     public Map<String, Long> getNumberOfLastNames(final List<User> users) {
-        throw new UnsupportedOperationException("Not implemented");
+        return users.stream()
+                .collect(Collectors.groupingBy(User::getLastName, Collectors.counting()));
     }
 }
