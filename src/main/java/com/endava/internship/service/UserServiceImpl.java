@@ -13,28 +13,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<String> getFirstNamesReverseSorted(List<User> users) {
-        return users.stream()
-                .sorted(Comparator.comparing(User::getFirstName).reversed())
-                .map(User::getFirstName)
-                .collect(Collectors.toList());
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
     public List<User> sortByAgeDescAndNameAsc(final List<User> users) {
-        return users.stream()
-                .sorted(Comparator.comparing(User::getFirstName))
-                .sorted(Comparator.comparing(User::getAge).reversed())
-                .collect(Collectors.toList());
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
     public List<Privilege> getAllDistinctPrivileges(final List<User> users) {
-
-        return users.stream()
-                .flatMap(user -> user.getPrivileges().stream())
-                .distinct()
-                .collect(Collectors.toList());
-
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
@@ -44,26 +33,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<Integer, List<User>> groupByCountOfPrivileges(final List<User> users) {
-        return null;
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
     public double getAverageAgeForUsers(final List<User> users) {
-        return users.stream()
-                .collect(Collectors.averagingDouble(User::getAge));
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
     public Optional<String> getMostFrequentLastName(final List<User> users) {
-        return users.stream()
-                .collect(Collectors.groupingBy(User::getLastName, Collectors.counting()))
-                .entrySet()
-                .stream()
-                .filter(entry -> entry.getValue() >= 2)
-                .reduce((e1, e2) -> e1.getValue() < e2.getValue()? e2:
-                        e1.getValue() > e2.getValue()? e1:
-                                new AbstractMap.SimpleImmutableEntry<>(null, e1.getValue()))
-                .map(Map.Entry::getKey);
+        throw new UnsupportedOperationException("Not implemented");
     }
 
     @Override
