@@ -3,8 +3,6 @@ package com.endava.internship.service;
 
 import com.endava.internship.domain.Privilege;
 import com.endava.internship.domain.User;
-import com.endava.internship.service.UserService;
-import com.endava.internship.service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -136,10 +134,12 @@ public class UserServiceImplTest {
     void shouldReturnOptionalEmptyIfThereAreDistinctNumberOfLastNames() {
         final User user1 = new User(1L, "John", "Doe", 26, singletonList(Privilege.UPDATE));
         final User user2 = new User(2L, "Greg", "Jonson", 30, singletonList(Privilege.UPDATE));
+        final User user4 = new User(4L, "Greg", "Jonson", 30, singletonList(Privilege.UPDATE));
         final User user3 = new User(3L, "Alex", "Smith", 13, singletonList(Privilege.DELETE));
+        final User user5 = new User(5L, "Alex", "Smith", 13, singletonList(Privilege.DELETE));
 
         final Optional<String> mostFrequentLastName =
-                userService.getMostFrequentLastName(asList(user1, user2, user3));
+                userService.getMostFrequentLastName(asList(user1, user2, user3, user4, user5));
 
         assertThat(mostFrequentLastName).isEmpty();
     }
